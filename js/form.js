@@ -8,10 +8,16 @@ $("#formSubmit").click(function(e){
         message_html: $('#message').val(),
         phone: 8899234560
     };
+    const emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     //Check if all the fiedls are completely filled
     if(!(data.from_email) || !(data.from_name) || !(data.message_html) || !(data.subject)){
         $("#show").text("Please fill the form completely.");
     }
+    //Email-Validation
+    else if(!emailReg.test(data.from_email)) {
+        $('#show').text("Enter a Valid email");
+    }
+
     else{
         $.ajax('https://emailtanya-api.herokuapp.com/email', {
             type: 'POST',
